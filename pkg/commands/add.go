@@ -2,12 +2,14 @@ package commands
 
 import (
 	"fmt"
+
 	"github.com/spf13/cobra"
 )
 
 var addCmd = &cobra.Command{
-	Use: "add",
-	Run: Add,
+	Use:   "add",
+	Short: "Add a new task",
+	Run:   Add,
 }
 
 func Add(cmd *cobra.Command, args []string) {
