@@ -106,3 +106,47 @@ func filterByStatus(tasks []models.Task, status string) []models.Task {
 	}
 	return filtered
 }
+
+func UpdateTaskStatus(id int, status string) error {
+	tasks, err := readTasks()
+	if err != nil {
+		return err
+	}
+
+	taskFound := false
+	for i, task := range tasks {
+		if task.ID == id {
+			tasks[i].Status = status
+			taskFound = true
+			break
+		}
+	}
+
+	if !taskFound {
+		return fmt.Errorf("задача с id %d не найдена", id)
+	}
+
+	return writeTasks(tasks)
+}
+
+func UpdateTaskDescription(id int, description string) error {
+	tasks, err := readTasks()
+	if err != nil {
+		return err
+	}
+
+	taskFound := false
+	for i, task := range tasks {
+		if task.ID == id {
+			tasks[i].Description = description
+			taskFound = true
+			break
+		}
+	}
+
+	if !taskFound {
+		return fmt.Errorf("task with id %d not found", id)
+	}
+
+	return writeTasks(tasks)
+}

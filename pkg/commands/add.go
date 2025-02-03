@@ -30,12 +30,12 @@ func Add(cmd *cobra.Command, args []string) {
 
 func ensureTaskSpecified(args []string) {
 	if len(args) < 1 {
-		panic("You must specify a task")
+		panic("You must specify a task description")
 	}
 }
 
 func ensureNotTooLong(args []string) {
 	if len(args) > 1 {
-		panic("Too many arguments")
+		panic("Too many arguments. Task description should be in quotes")
 	}
 }

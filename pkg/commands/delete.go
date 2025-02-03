@@ -6,7 +6,6 @@ import (
 
 	"github.com/idmaksim/task-tracker-cli/pkg/json"
 	"github.com/spf13/cobra"
-
 )
 
 var deleteCmd = &cobra.Command{
@@ -33,4 +32,5 @@ func Delete(cmd *cobra.Command, args []string) {
 		return
 	}
 
+	fmt.Println("Task deleted successfully")
 }

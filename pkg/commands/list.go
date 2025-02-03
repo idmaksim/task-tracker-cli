@@ -38,8 +38,8 @@ func List(cmd *cobra.Command, args []string) {
 }
 
 func PrettyPrint(tasks []models.Task) {
-	fmt.Println("ID\tTask")
+	fmt.Println("ID\t\tStatus\t\tDescription")
 	for _, task := range tasks {
-		fmt.Printf("%d\t%s\n", task.ID, task.Description)
+		fmt.Printf("%d\t\t%s\t\t%s\n", task.ID, task.Status, task.Description)
 	}
 }
