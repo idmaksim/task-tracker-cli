@@ -19,7 +19,7 @@ A powerful command-line task management tool built with Go, following the clean 
 ### Installation
 
 ```bash
-go install github.com/idmaksim/task-tracker-cli/cmd/task-cli
+go install github.com/idmaksim/task-tracker-cli/cmd/task-cli@latest
 ```
 
 ## 💡 Usage
