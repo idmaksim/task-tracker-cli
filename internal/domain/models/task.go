@@ -1,6 +1,11 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"github.com/idmaksim/task-tracker-cli/pkg/constants"
+
+)
 
 type Task struct {
 	ID          int       `json:"id"`
@@ -14,8 +19,9 @@ func NewTask(description string) *Task {
 	now := time.Now()
 	return &Task{
 		Description: description,
-		Status:      StatusTodo,
+		Status:      constants.Todo,
 		CreatedAt:   now,
 		UpdatedAt:   now,
 	}
+
 }

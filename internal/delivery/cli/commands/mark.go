@@ -3,8 +3,9 @@ package commands
 import (
 	"strconv"
 
-	"github.com/idmaksim/task-tracker-cli/internal/domain/models"
+	"github.com/idmaksim/task-tracker-cli/pkg/constants"
 	"github.com/spf13/cobra"
+
 )
 
 func (c *Commands) newMarkInProgressCmd() *cobra.Command {
@@ -17,7 +18,7 @@ func (c *Commands) newMarkInProgressCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			return c.handler.UpdateTaskStatus(id, models.StatusInProgress)
+			return c.handler.UpdateTaskStatus(id, constants.InProgress)
 		},
 	}
 }
@@ -32,7 +33,7 @@ func (c *Commands) newMarkDoneCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			return c.handler.UpdateTaskStatus(id, models.StatusDone)
+			return c.handler.UpdateTaskStatus(id, constants.Done)
 		},
 	}
 }
