@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/idmaksim/task-tracker-cli/internal/delivery/cli/commands"
 	"github.com/idmaksim/task-tracker-cli/internal/delivery/cli/handlers"
@@ -18,7 +19,18 @@ func main() {
 		}
 	}()
 
-	store := storage.NewJSONStorage("data.json")
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		panic(err)
+	}
+
+	dataDir := filepath.Join(homeDir, ".task-tracker")
+	if err := os.MkdirAll(dataDir, 0755); err != nil {
+		panic(err)
+	}
+
+	dataPath := filepath.Join(dataDir, "data.json")
+	store := storage.NewJSONStorage(dataPath)
 	if err := store.Init(); err != nil {
 		panic(err)
 	}
