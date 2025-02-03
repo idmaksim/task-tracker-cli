@@ -123,7 +123,7 @@ func UpdateTaskStatus(id int, status string) error {
 	}
 
 	if !taskFound {
-		return fmt.Errorf("задача с id %d не найдена", id)
+		return fmt.Errorf("task with id %d not found", id)
 	}
 
 	return writeTasks(tasks)
