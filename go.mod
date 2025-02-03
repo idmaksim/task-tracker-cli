@@ -1,4 +1,4 @@
-module task-tracker-cli
+module github.com/idmaksim/task-tracker-cli
 
 go 1.23
 

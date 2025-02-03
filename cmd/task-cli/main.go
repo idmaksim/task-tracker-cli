@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"task-tracker-cli/pkg/commands"
-	"task-tracker-cli/pkg/json"
+
+	"github.com/idmaksim/task-tracker-cli/pkg/commands"
+	"github.com/idmaksim/task-tracker-cli/pkg/json"
 )
 
 func main() {

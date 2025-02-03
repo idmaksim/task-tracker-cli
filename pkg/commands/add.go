@@ -2,9 +2,9 @@ package commands
 
 import (
 	"fmt"
-	"task-tracker-cli/pkg/json"
-	"task-tracker-cli/pkg/models"
 
+	"github.com/idmaksim/task-tracker-cli/pkg/json"
+	"github.com/idmaksim/task-tracker-cli/pkg/models"
 	"github.com/spf13/cobra"
 )
 

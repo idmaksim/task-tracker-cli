@@ -3,8 +3,8 @@ package commands
 import (
 	"fmt"
 	"strconv"
-	"task-tracker-cli/pkg/json"
 
+	"github.com/idmaksim/task-tracker-cli/pkg/json"
 	"github.com/spf13/cobra"
 
 )

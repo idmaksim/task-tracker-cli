@@ -4,8 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"task-tracker-cli/pkg/models"
-	"task-tracker-cli/pkg/types"
+
+	"github.com/idmaksim/task-tracker-cli/pkg/models"
+	"github.com/idmaksim/task-tracker-cli/pkg/types"
 )
 
 var dataPath = "data.json"
