@@ -2,8 +2,11 @@ package commands
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"task-tracker-cli/pkg/json"
+	"task-tracker-cli/pkg/models"
+	"task-tracker-cli/pkg/types"
+
+	"github.com/spf13/cobra"
 )
 
 var listCmd = &cobra.Command{
@@ -13,7 +16,14 @@ var listCmd = &cobra.Command{
 }
 
 func List(cmd *cobra.Command, args []string) {
-	tasks, err := json.ReadAllData()
+	var status string
+	if len(args) > 0 {
+		status = args[0]
+	}
+
+	tasks, err := json.ReadAllData(types.FindAllOptions{
+		Status: status,
+	})
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -24,5 +34,12 @@ func List(cmd *cobra.Command, args []string) {
 		return
 	}
 
-	fmt.Println(tasks)
+	PrettyPrint(tasks)
+}
+
+func PrettyPrint(tasks []models.Task) {
+	fmt.Println("ID\tTask")
+	for _, task := range tasks {
+		fmt.Printf("%d\t%s\n", task.ID, task.Description)
+	}
 }

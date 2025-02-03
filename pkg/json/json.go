@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"os"
 	"task-tracker-cli/pkg/models"
+	"task-tracker-cli/pkg/types"
 )
 
 var dataPath = "data.json"
@@ -37,8 +38,13 @@ func writeTasks(tasks []models.Task) error {
 	return nil
 }
 
-func ReadAllData() ([]models.Task, error) {
-	return readTasks()
+func ReadAllData(options types.FindAllOptions) ([]models.Task, error) {
+	tasks, err := readTasks()
+	if err != nil {
+		return nil, err
+	}
+	return filterByStatus(tasks, options.Status), nil
+
 }
 
 func WriteData(task models.Task) (int, error) {
@@ -76,4 +82,17 @@ func DeleteData(id int) error {
 	}
 
 	return writeTasks(tasks)
+}
+
+func filterByStatus(tasks []models.Task, status string) []models.Task {
+	if status == "" {
+		return tasks
+	}
+	var filtered []models.Task
+	for _, task := range tasks {
+		if task.Status == status {
+			filtered = append(filtered, task)
+		}
+	}
+	return filtered
 }
