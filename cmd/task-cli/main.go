@@ -11,7 +11,6 @@ import (
 )
 
 func main() {
-	// Setup error handling
 	defer func() {
 		if err := recover(); err != nil {
 			fmt.Println(err)
@@ -19,18 +18,15 @@ func main() {
 		}
 	}()
 
-	// Initialize storage
 	store := storage.NewJSONStorage("data.json")
 	if err := store.Init(); err != nil {
 		panic(err)
 	}
 
-	// Initialize service and handler
 	service := usecases.NewTaskService(store)
 	handler := handlers.NewTaskHandler(service)
 	cmd := commands.NewCommands(handler)
 
-	// Setup and run CLI
 	if err := cmd.Execute(); err != nil {
 		panic(err)
 	}
