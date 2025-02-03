@@ -2,6 +2,7 @@ package json
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"task-tracker-cli/pkg/models"
 	"task-tracker-cli/pkg/types"
@@ -75,10 +76,18 @@ func DeleteData(id int) error {
 		return err
 	}
 
+	var deleted models.Task
+
 	for i, task := range tasks {
 		if task.ID == id {
+			deleted = task
 			tasks = append(tasks[:i], tasks[i+1:]...)
+			break
 		}
+	}
+
+	if deleted.ID == 0 {
+		return fmt.Errorf("task with id %d not found", id)
 	}
 
 	return writeTasks(tasks)
