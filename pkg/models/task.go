@@ -7,3 +7,10 @@ type Task struct {
 	CreatedAt   string `json:"createdAt"`
 	UpdatedAt   string `json:"updatedAt"`
 }
+
+func NewTask(description string) Task {
+	return Task{
+		Description: description,
+		Status:      "todo",
+	}
+}

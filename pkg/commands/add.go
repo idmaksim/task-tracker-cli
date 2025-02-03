@@ -2,6 +2,8 @@ package commands
 
 import (
 	"fmt"
+	"task-tracker-cli/pkg/json"
+	"task-tracker-cli/pkg/models"
 
 	"github.com/spf13/cobra"
 )
@@ -16,9 +18,14 @@ func Add(cmd *cobra.Command, args []string) {
 	ensureTaskSpecified(args)
 	ensureNotTooLong(args)
 
-	task := args[0]
+	task := models.NewTask(args[0])
 
-	fmt.Println(task)
+	id, err := json.WriteData(task)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Task added successfully with ID:", id)
 }
 
 func ensureTaskSpecified(args []string) {

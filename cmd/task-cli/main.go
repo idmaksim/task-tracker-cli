@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"task-tracker-cli/pkg/commands"
+	"task-tracker-cli/pkg/json"
 )
 
 func main() {
@@ -11,5 +12,6 @@ func main() {
 			fmt.Println(err)
 		}
 	}()
+	json.StartUp()
 	commands.Execute()
 }
