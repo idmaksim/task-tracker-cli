@@ -5,19 +5,10 @@ import (
 	"fmt"
 	"os"
 	"sync"
-	"time"
 
 	"github.com/idmaksim/task-tracker-cli/internal/domain/models"
 	"github.com/idmaksim/task-tracker-cli/internal/domain/repositories"
 )
-
-type jsonTask struct {
-	ID          int    `json:"id"`
-	Description string `json:"description"`
-	Status      string `json:"status"`
-	CreatedAt   string `json:"createdAt"`
-	UpdatedAt   string `json:"updatedAt"`
-}
 
 type JSONStorage struct {
 	filePath string
@@ -146,48 +137,31 @@ func (s *JSONStorage) readTasks() ([]*models.Task, error) {
 		return nil, err
 	}
 
-	var jsonTasks []jsonTask
-	if err := json.Unmarshal(data, &jsonTasks); err != nil {
-		return nil, err
-	}
-
 	var tasks []*models.Task
-	for _, jt := range jsonTasks {
-		task := &models.Task{
-			ID:          jt.ID,
-			Description: jt.Description,
-			Status:      jt.Status,
-		}
-		if jt.CreatedAt != "" {
-			if t, err := time.Parse(time.RFC3339, jt.CreatedAt); err == nil {
-				task.CreatedAt = t
-			}
-		}
-		if jt.UpdatedAt != "" {
-			if t, err := time.Parse(time.RFC3339, jt.UpdatedAt); err == nil {
-				task.UpdatedAt = t
-			}
-		}
-		tasks = append(tasks, task)
+
+	if err := json.Unmarshal(data, &tasks); err != nil {
+		return nil, err
 	}
 
 	return tasks, nil
 }
 
 func (s *JSONStorage) writeTasks(tasks []*models.Task) error {
-	var jsonTasks []jsonTask
+	var jsonTasks []models.Task
 	for _, task := range tasks {
-		jt := jsonTask{
-			ID:          task.ID,
+		jt := models.Task{
+			ID: task.ID,
+
 			Description: task.Description,
 			Status:      task.Status,
 		}
 		if !task.CreatedAt.IsZero() {
-			jt.CreatedAt = task.CreatedAt.Format(time.RFC3339)
+			jt.CreatedAt = task.CreatedAt
 		}
 		if !task.UpdatedAt.IsZero() {
-			jt.UpdatedAt = task.UpdatedAt.Format(time.RFC3339)
+			jt.UpdatedAt = task.UpdatedAt
 		}
+
 		jsonTasks = append(jsonTasks, jt)
 	}
 
