@@ -134,11 +134,17 @@ func (s *JSONStorage) FindAll(filter repositories.TaskFilter) ([]*models.Task, e
 func (s *JSONStorage) readTasks() ([]*models.Task, error) {
 	data, err := os.ReadFile(s.filePath)
 	if err != nil {
+		if os.IsNotExist(err) {
+			return []*models.Task{}, nil
+		}
 		return nil, err
 	}
 
-	var tasks []*models.Task
+	if len(data) == 0 {
+		return []*models.Task{}, nil
+	}
 
+	var tasks []*models.Task
 	if err := json.Unmarshal(data, &tasks); err != nil {
 		return nil, err
 	}
